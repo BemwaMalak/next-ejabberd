@@ -1,0 +1,36 @@
+{
+    "name": "next_ejabberd",
+    "version": "1.0.0",
+    "description": "A TypeScript package for interacting with ejabberd/XMPP servers.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "prepare": "npm run build",
+        "format": "prettier --write ."
+    },
+    "keywords": [
+        "ejabberd",
+        "XMPP",
+        "chat",
+        "typescript",
+        "client"
+    ],
+    "author": "Bemwa Malak",
+    "license": "MIT",
+    "dependencies": {
+        "@xmpp/client": "^0.13.1",
+        "@xmpp/jid": "^0.13.1",
+        "axios": "^1.7.8",
+        "events": "^3.3.0",
+        "mime": "^4.0.4",
+        "prettier": "^3.3.3",
+        "uuid": "^11.0.3"
+    },
+    "devDependencies": {
+        "@types/axios": "^0.9.36",
+        "@types/mime": "^3.0.4",
+        "@types/mime-types": "^2.1.4",
+        "typescript": "^5.5.4"
+    }
+}
