@@ -1,15 +1,31 @@
 {
-    "name": "next_ejabberd",
+    "name": "next-ejabberd",
     "version": "1.0.0",
-    "description": "A TypeScript package for interacting with ejabberd/XMPP servers.",
+    "description": "A modern TypeScript XMPP client for Next.js applications, designed to work seamlessly with Ejabberd servers",
     "main": "dist/index.js",
+    "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "LICENSE",
+        "README.md"
+    ],
     "scripts": {
         "build": "tsc",
         "prepare": "npm run build",
         "husky": "husky",
-        "format": "prettier --write ."
+        "format": "prettier --write .",
+        "prepublishOnly": "npm run build",
+        "test": "echo \"No tests specified\" && exit 0"
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BemwaMalak/next-ejabberd.git"
+    },
+    "bugs": {
+        "url": "https://github.com/BemwaMalak/next-ejabberd/issues"
+    },
+    "homepage": "https://github.com/BemwaMalak/next-ejabberd",
     "keywords": [
         "ejabberd",
         "XMPP",

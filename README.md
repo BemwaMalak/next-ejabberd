@@ -202,10 +202,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Credits
 
-Developed by [Your Name/Organization] with ❤️
+Developed by Bemwa Malak with ❤️
 
 ## Support
 
-- 📫 Report issues on [GitHub](https://github.com/yourusername/next-ejabberd/issues)
-- 💬 Join our [Discord community](https://discord.gg/your-discord)
-- 📧 Contact us at support@your-domain.com
+- 📫 Report issues on [GitHub](https://github.com/bemwamalak/next-ejabberd/issues)
+- 📧 Contact me at bemwa.malak10@gmail.com

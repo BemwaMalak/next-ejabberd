@@ -1,0 +1,10 @@
+src/
+tests/
+examples/
+.github/
+.git/
+.gitignore
+.prettierrc
+.husky/
+tsconfig.json
+*.log
