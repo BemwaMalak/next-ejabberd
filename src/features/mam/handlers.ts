@@ -2,11 +2,7 @@ import { Element } from '@xmpp/xml';
 import { ChatMessage, FileMessage, XMPPMessage } from '../../types/messages';
 import { MAMResult } from '../../types/mam';
 import { Client } from '@xmpp/client';
-import {
-    HTTP_UPLOAD_NAMESPACE,
-    MAM_NAMESPACE,
-    RSM_NAMESPACE,
-} from '../../constants/namespaces';
+import { FileNamespaces, MAMNamespaces } from '../../constants/namespaces';
 
 export class MAMHandler {
     private messageCollections: Map<string, XMPPMessage[]> = new Map();
@@ -16,7 +12,7 @@ export class MAMHandler {
      */
     public parseResult(stanza: Element): MAMResult | null {
         try {
-            const resultChild = stanza.getChild('result', MAM_NAMESPACE);
+            const resultChild = stanza.getChild('result', MAMNamespaces.MAM);
             if (resultChild) {
                 const queryId = resultChild.attrs.queryid;
                 const message = this.parseForwardedMessage(resultChild);
@@ -33,7 +29,7 @@ export class MAMHandler {
                 return null;
             }
 
-            const fin = stanza.getChild('fin', MAM_NAMESPACE);
+            const fin = stanza.getChild('fin', MAMNamespaces.MAM);
             if (!fin) return null;
 
             const queryId = stanza.attrs.id;
@@ -49,7 +45,7 @@ export class MAMHandler {
             };
 
             // Parse RSM information
-            const set = fin.getChild('set', RSM_NAMESPACE);
+            const set = fin.getChild('set', MAMNamespaces.RSM);
             if (set) {
                 const first = set.getChildText('first');
                 const last = set.getChildText('last');
@@ -98,7 +94,7 @@ export class MAMHandler {
             const body = message.getChildText('body') || '';
 
             // Check for file message
-            const x = message.getChild('x', HTTP_UPLOAD_NAMESPACE);
+            const x = message.getChild('x', FileNamespaces.HTTP_UPLOAD);
             const fileElement = x?.getChild('file');
 
             if (fileElement) {

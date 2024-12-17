@@ -48,3 +48,19 @@ export interface UploadConfig {
     downloadEndpoint?: string;
     headers?: Record<string, string>;
 }
+
+/**
+ * Custom error class for file upload related errors
+ * Used to distinguish file upload errors from other types of errors
+ */
+export class FileUploadError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = 'FileUploadError';
+
+        // Maintains proper stack trace for where our error was thrown (only available on V8)
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, FileUploadError);
+        }
+    }
+}

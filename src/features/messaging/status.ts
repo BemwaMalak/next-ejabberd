@@ -5,10 +5,7 @@ import {
     MessageStatusErrorType,
 } from '../../types/message_status';
 import { XMPPMessage } from '../../types/messages';
-import {
-    STATUS_NAMESPACE,
-    RECEIPT_NAMESPACE,
-} from '../../constants/namespaces';
+import { MessageNamespaces } from '../../constants/namespaces';
 
 /**
  * Manager class for handling message read status
@@ -29,7 +26,7 @@ export class MessageStatusManager {
         });
 
         const displayed = new Element('displayed', {
-            xmlns: RECEIPT_NAMESPACE,
+            xmlns: MessageNamespaces.RECEIPT,
             id: message.id,
         });
 
@@ -50,7 +47,7 @@ export class MessageStatusManager {
         });
 
         const received = new Element('received', {
-            xmlns: RECEIPT_NAMESPACE,
+            xmlns: MessageNamespaces.RECEIPT,
             id: message.id,
         });
 
@@ -66,7 +63,7 @@ export class MessageStatusManager {
     public async markAsRead(message: XMPPMessage): Promise<void> {
         const iq = new Element('iq', { type: 'set' });
         const markRead = new Element('mark-read', {
-            xmlns: STATUS_NAMESPACE,
+            xmlns: MessageNamespaces.STATUS,
             id: message.id,
             from: message.from,
             to: message.to,
@@ -90,7 +87,7 @@ export class MessageStatusManager {
     public async markAsDelivered(message: XMPPMessage): Promise<void> {
         const iq = new Element('iq', { type: 'set' });
         const markDelivered = new Element('mark-delivered', {
-            xmlns: STATUS_NAMESPACE,
+            xmlns: MessageNamespaces.STATUS,
             id: message.id,
             from: message.from,
             to: message.to,
@@ -118,7 +115,7 @@ export class MessageStatusManager {
     ): Promise<MessageReadStatus> {
         const iq = new Element('iq', { type: 'get' });
         const statusQuery = new Element('get-status', {
-            xmlns: STATUS_NAMESPACE,
+            xmlns: MessageNamespaces.STATUS,
             id: messageId,
             jid: jid,
         });

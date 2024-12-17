@@ -1,7 +1,6 @@
 import { Element } from '@xmpp/xml';
 import { v4 as uuidv4 } from 'uuid';
 import {
-    ChatMessage,
     XMPPMessage,
     MessageOptions,
     ThreadInfo,
@@ -9,12 +8,7 @@ import {
     MessageReceipt,
     DeliveryStatus,
 } from '../../types/messages';
-import {
-    DELAY_NAMESPACE,
-    REPLACE_NAMESPACE,
-    RECEIPT_NAMESPACE,
-    HTTP_UPLOAD_NAMESPACE,
-} from '../../constants/namespaces';
+import { FileNamespaces, MessageNamespaces } from '../../constants/namespaces';
 import { FileUploadSlot } from '../../types/files';
 
 /**
@@ -53,7 +47,7 @@ export class MessageManager {
         // Add delay information if provided
         if (options.delay) {
             const delay = new Element('delay', {
-                xmlns: DELAY_NAMESPACE,
+                xmlns: MessageNamespaces.DELAY,
                 stamp: options.delay.toISOString(),
             });
             message.children.push(delay);
@@ -62,7 +56,7 @@ export class MessageManager {
         // Add message correction if needed
         if (options.replacesId) {
             const replace = new Element('replace', {
-                xmlns: REPLACE_NAMESPACE,
+                xmlns: MessageNamespaces.REPLACE,
                 id: options.replacesId,
             });
             message.children.push(replace);
@@ -104,7 +98,7 @@ export class MessageManager {
         }
         bodyElement.children.push(body);
         const x = new Element('x', {
-            xmlns: HTTP_UPLOAD_NAMESPACE,
+            xmlns: FileNamespaces.HTTP_UPLOAD,
         });
 
         const fileElement = new Element('file');
@@ -156,7 +150,7 @@ export class MessageManager {
             };
 
             // Check for file attachment
-            const x = stanza.getChild('x', HTTP_UPLOAD_NAMESPACE);
+            const x = stanza.getChild('x', FileNamespaces.HTTP_UPLOAD);
             if (x) {
                 const fileElement = x.getChild('file');
                 if (fileElement) {
@@ -186,8 +180,14 @@ export class MessageManager {
 
     public parseReceipt(stanza: Element): MessageReceipt | null {
         try {
-            const received = stanza.getChild('received', RECEIPT_NAMESPACE);
-            const displayed = stanza.getChild('displayed', RECEIPT_NAMESPACE);
+            const received = stanza.getChild(
+                'received',
+                MessageNamespaces.RECEIPT,
+            );
+            const displayed = stanza.getChild(
+                'displayed',
+                MessageNamespaces.RECEIPT,
+            );
 
             const receipt = received || displayed;
             if (!receipt) return null;
@@ -219,7 +219,7 @@ export class MessageManager {
      * Gets the message being replaced
      */
     public getReplacedMessageId(stanza: Element): string | null {
-        const replace = stanza.getChild('replace', REPLACE_NAMESPACE);
+        const replace = stanza.getChild('replace', MessageNamespaces.REPLACE);
         return replace?.attrs.id || null;
     }
 
@@ -227,7 +227,7 @@ export class MessageManager {
      * Gets the delay timestamp if present
      */
     public getDelayTimestamp(stanza: Element): Date | null {
-        const delay = stanza.getChild('delay', DELAY_NAMESPACE);
+        const delay = stanza.getChild('delay', MessageNamespaces.DELAY);
         return delay ? new Date(delay.attrs.stamp) : null;
     }
 }

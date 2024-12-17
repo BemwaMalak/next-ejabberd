@@ -11,8 +11,9 @@ import { XMPPError } from './types/events';
 import { MAMQueryOptions } from './types/mam';
 import { MessageStatusManager } from './features/messaging/status';
 import { MessageReadStatus } from './types/message_status';
+import { IXMPPClient } from './interfaces/client';
 
-export class EjabberdClient extends XMPPEventEmitter {
+export class EjabberdClient extends XMPPEventEmitter implements IXMPPClient {
     private connection: ConnectionManager;
     private messages: MessageManager;
     private attachments: AttachmentManager;

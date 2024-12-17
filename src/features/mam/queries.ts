@@ -6,11 +6,7 @@ import {
     MAMFilterOptions,
     MAMQueryOptions,
 } from '../../types/mam';
-import {
-    MAM_NAMESPACE,
-    RSM_NAMESPACE,
-    DATAFORM_NAMESPACE,
-} from '../../constants/namespaces';
+import { FileNamespaces, MAMNamespaces } from '../../constants/namespaces';
 
 export class MAMQueryBuilder {
     /**
@@ -53,14 +49,14 @@ export class MAMQueryBuilder {
      */
     private createDataForm(fields: FormField[]): Element {
         const x = this.createElement('x', {
-            xmlns: DATAFORM_NAMESPACE,
+            xmlns: MAMNamespaces.DATAFORM,
             type: 'submit',
         });
 
         // Add FORM_TYPE field
         const formTypeField = this.createFormField({
             name: 'FORM_TYPE',
-            value: MAM_NAMESPACE,
+            value: MAMNamespaces.MAM,
             type: 'hidden',
         });
         x.children.push(formTypeField);
@@ -77,7 +73,7 @@ export class MAMQueryBuilder {
      * Creates RSM (Result Set Management) element
      */
     private createRSM(options: RSMOptions): Element {
-        const set = this.createElement('set', { xmlns: RSM_NAMESPACE });
+        const set = this.createElement('set', { xmlns: MAMNamespaces.RSM });
 
         if (options.max !== undefined) {
             set.children.push(
@@ -143,7 +139,7 @@ export class MAMQueryBuilder {
 
         // Create query element
         const query = this.createElement('query', {
-            xmlns: options.namespace || MAM_NAMESPACE,
+            xmlns: options.namespace || MAMNamespaces.MAM,
             queryid: queryId,
             ...(options.node ? { node: options.node } : {}),
         });
