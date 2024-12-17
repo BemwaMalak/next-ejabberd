@@ -143,10 +143,16 @@ client.on('message', (message: XMPPMessage) => {});
 client.on('presence', (presence: XMPPMessage) => {});
 
 // Message delivery receipt
-client.on('receipt', (receipt: { id: string; type: 'received' | 'displayed' }) => {});
+client.on(
+    'receipt',
+    (receipt: { id: string; type: 'received' | 'displayed' }) => {},
+);
 
 // MAM query results
-client.on('mamResult', (result: { messages: XMPPMessage[]; complete: boolean }) => {});
+client.on(
+    'mamResult',
+    (result: { messages: XMPPMessage[]; complete: boolean }) => {},
+);
 
 // Connection status changes
 client.on('status', (status: ConnectionState) => {});
@@ -159,19 +165,54 @@ client.on('error', (error: XMPPError) => {});
 
 ```typescript
 interface ConnectionConfig {
-    service: string;        // WebSocket endpoint
-    domain: string;         // XMPP domain
-    username: string;       // User's username or full JID
-    password: string;       // User's password
-    resource?: string;      // Optional resource identifier
-    timeout?: number;       // Connection timeout (default: 10000ms)
-    attachmentConfig?: {    // Optional file upload configuration
+    service: string; // WebSocket endpoint
+    domain: string; // XMPP domain
+    username: string; // User's username or full JID
+    password: string; // User's password
+    resource?: string; // Optional resource identifier
+    timeout?: number; // Connection timeout (default: 10000ms)
+    attachmentConfig?: {
+        // Optional file upload configuration
         uploadEndpoint?: string;
         maxFileSize?: number;
         allowedMimeTypes?: string[];
     };
 }
 ```
+
+## Testing
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run tests with coverage
+npm test -- --coverage
+
+# Run specific test file
+npm test -- path/to/test.test.ts
+```
+
+### Test Structure
+
+Tests are organized by features and utilities:
+
+```
+src/__tests__/
+├── core/              # Core functionality tests
+├── features/         # Feature-specific tests
+│   ├── messaging/   # Message handling tests
+│   ├── mam/        # Message Archive Management tests
+│   └── files/      # File handling tests
+└── utils/           # Utility function tests
+```
+
+For more details on writing and contributing tests, see our [Contributing Guide](CONTRIBUTING.md).
 
 ## Contributing
 
