@@ -29,20 +29,9 @@ This package requires the following Ejabberd modules to be enabled:
 ## Installation
 
 ```bash
-# First install the package
+# install the package
 npm install next-ejabberd
-
-# Then install the required peer dependencies
-npm install @xmpp/client@0.13.1 @xmpp/jid@0.13.1 @xmpp/xml@0.13.1 ltx@3.0.0
 ```
-
-Note: This package requires the following peer dependencies:
-- `@xmpp/client@0.13.1`
-- `@xmpp/jid@0.13.1`
-- `@xmpp/xml@0.13.1`
-- `ltx@3.0.0`
-
-Make sure to install these dependencies in your project for the package to work correctly.
 
 ## Quick Start
 
