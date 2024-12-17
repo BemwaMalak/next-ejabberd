@@ -1,6 +1,6 @@
 {
     "name": "next-ejabberd",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "A modern TypeScript XMPP client for Next.js applications, designed to work seamlessly with Ejabberd servers",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
@@ -56,5 +56,8 @@
         "@types/xmpp__xml": "^0.13.4",
         "husky": "^9.1.7",
         "typescript": "^5.5.4"
+    },
+    "nextjs": {
+        "transpilePackages": ["@xmpp/client", "@xmpp/jid", "@xmpp/xml", "ltx"]
     }
 }
